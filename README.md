@@ -59,7 +59,9 @@ data dari movie dan rating digabung sehingga hasil akan menjadi seperti ini dan 
 ![alt text](https://raw.githubusercontent.com/okyx/Movie-Prediksi/main/penggabungan.PNG)
 
 Tahap 4 split data:
-pada proyek ini hanya dilakukan split sebanyak 10% dikarenakan data yang ada cukup banyak yakni 10%.
+pada proyek ini hanya dilakukan split sebanyak 10% dikarenakan data yang ada cukup banyak yakni 10%.<br>
+![alt text](https://raw.githubusercontent.com/okyx/Movie-Prediksi/main/gambar/pembagian%20data.PNG)<br>
+Berdasarkan gambar diatas test_size di set dengan 0.1 yang bearti pembagian data pada proyek ini adalah 10% dari keseluruhan data digunakan untuk test dan 90% digunakan untuk train.
 
 
 
@@ -69,7 +71,7 @@ Dalam modelling disini digunakan Model Neural Network dengan embedding layer
 Neural Network digunakan untuk mengupdate bobot embedding layer sehingga hasil perkalian dot antara embedding layer user dan layer movie sesuai dengan target yang diingingkan , perlu diketahui bahwa perkalian dot pada matrix akan menghasilkan 1 jika vektor dari user dan vektor dari movie memiliki magnitude yang sama dan melalui pelatihan akan diupdate untuk mendapatkan loss terkecil mungkin.
 
 Adapun plot loss pada pelatihan ini sebagai berikut<br>
-![alt text](https://raw.githubusercontent.com/okyx/Movie-Prediksi/main/gambar/plot%20loss.png)<br>
+![alt text](https://raw.githubusercontent.com/okyx/Movie-Prediksi/main/plot%20loss.png)<br>
 
 
 
@@ -87,6 +89,8 @@ Berikut top 10 judul yang direkomendasikan sistem yang telah dibangun:<br>
 
 
 ## Evaluation
+
+
 Metric evaluasi yang digunakan adalah Root Mean Squared, untuk menghitung rata-rata akar perbedaan kuadrat antara target dan prediksi.
 adapun rumus Root Mean Squared sebagai berikut<br>
 ![alt text](https://raw.githubusercontent.com/okyx/Movie-Prediksi/main/gambar/metric.PNG)<br>
@@ -95,6 +99,13 @@ dilihat dari rumus diatas jika nilai pred mendekati target maka nilai akan mende
 
 Dimisalkan ytrue berupa 1, 0.8, dan 0.5 sedangkan ypred yang diprediksi oleh sistem nerural network adalah 0.9, 0.8, 1. Maka perhitungan RSME seperti dibawah ini.<br>
 ![alt text](https://raw.githubusercontent.com/okyx/Movie-Prediksi/main/gambar/perhitungan%20metric.PNG)<br>
+
+Pada Proyek ini, metric evaluasi yang digunakan adalah RSME dengan nilai RSME konvergen di angka sekitar 0.2 seperti pada gambar berikut.<br>
+![alt text](https://raw.githubusercontent.com/okyx/Movie-Prediksi/main/gambar/konvergen.PNG)<br>
+
+Adapun plot metric tiap epoch seperti gambar dibawah, terlihat bahwa epoch cenderung telah konvergensi pada epoch awal-awal, sebaiknya menggunakan callback.<br>
+![alt text](https://raw.githubusercontent.com/okyx/Movie-Prediksi/main/gambar/plot%20metrix.png)<br>
+
 
 
 
