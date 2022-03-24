@@ -38,6 +38,8 @@ File 2 movies.csv
 
 Selanjutnya dilakukan pembacaan terhadap 2 file lalu dilakukan rating.info() dan movie.info() untuk melihat apakah terdapat data yang kosong, dan setelah dilakukan tahap tersebut ternyata tidak ada data yang kosong / null.
 
+Pada bar di bawah terlihat bahwa judul film lebih banyak dibandingkan pengguna, tetapi hal ini tidak akan menyebabkan bias pada pelatihan dikarenakan antara pengguna dan film termasuk independent yang artinya tidak mempengaruhi satu sama lain.<br>
+![alt text](https://raw.githubusercontent.com/okyx/Movie-Prediksi/main/gambar/barplot.PNG)<br>
 
 
 
