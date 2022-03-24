@@ -1,6 +1,6 @@
 # Laporan Proyek Machine Learning - Zicola Vladimir
 
-## Domain Proyek
+## Project Overview
 Untuk mempertahankan suatu layanan video streaming, maka diperlukan sistem rekomendasi film kepada pengguna sehingga mereka cenderung tetap di layanan video yang sama untuk menonton film tersebut, sehingga keuntungan suatu perusahaan dapat dipertahankan atau bahkan meningkat seiring dengan pertambahan jumlah pengguna baru.
 
 ## Business Understanding
@@ -9,14 +9,16 @@ Bayangkan suatu pengguna tertarik untuk menyewa suatu layanan dikarenakan ada fi
 
 ### Problem Statements
 Berdasarkan permasalahan diatas, akan dikembangkan suatu sistem untuk merekomendasi film, adapun rumusan masalah sebagai berikut.
-1. film apa yang kemungkinan bakalan disukai oleh pengguna?
+1. Bagaimana sistem neural network dapat merekomendasikan sebuah film berdasarkan rating yang diberikan pengguna?
 
 ### Goals
 Untuk menjawab rumusan masalah diatas, maka perlu dibuatkan sistem rekomendasi dengan goals sebagai berikut.
-1. Mengetahui film yang kemungkinan besar akan disukai oleh pengguna
+1. Mengetahui bagaimana sistem neural netowrk dapat merekomendasikan film yang kemungkinan besar akan disukai oleh pengguna
 
 ### Solution Statement
 Untuk menyelesaikan masalah tersebut demi mencapai hasil yang diinginkan maka digunakan algoritma Neural Network untuk mendapatkan embedding layer yang sesuai dengan pengguna dan rating filmnya.
+Algoritma ini mudah diterapkan dan tidak memerlukan hidden layer yang dalam, selain itu algoritma ini mudah diimplementasikan dikarenakan mudahnya pengaksesan library tensorflow.
+Cara kerja algoritma ini adalah mengupdate bobot embedding layer pada neural network sehingga hasil perkalian dot antara embedding layer pengguna dan embedding layer movie mendekati target rating.
 
 ## Data Understanding
 Data ini diambil dari kaggle dengan judul Movie Name and Review Data set yang dirilis 2 bulan yang lalu dengan link berikut [Dataset](https://www.kaggle.com/meetnagadia/movie-rating).
@@ -42,17 +44,17 @@ Selanjutnya dilakukan pembacaan terhadap 2 file lalu dilakukan rating.info() dan
 ## Data Preparation
 Tahap 1 Normalisasi data : 
 dataset rating dinormalisasi dengan rumus sebagai berikut untuk kolom rating.<br>
-![alt text](https://github.com/okyx/Movie-Prediksi/blob/main/gambar/rumus%20standarisasi.PNG)
+![alt text](https://raw.githubusercontent.com/okyx/Movie-Prediksi/main/gambar/rumus%20standarisasi.PNG)
 
 Tahap 2 One Hot Encoding untuk genres:
 setelah dilakukan one hot encoding terdapat movie yang null dengan tulisan no genre maka data tersebut akan di hapus.<br>
-![alt text](https://github.com/okyx/Movie-Prediksi/blob/main/gambar/onehotencoding.PNG)<br>
+![alt text](https://raw.githubusercontent.com/okyx/Movie-Prediksi/main/gambar/onehotencoding.PNG)<br>
 setelah dihapus berkurang data sebanyak 7 row dari 10329 menjadi 10322
 
 
 Tahap 3 Penggabungan data:<br>
 data dari movie dan rating digabung sehingga hasil akan menjadi seperti ini dan tidak ada null value lalu diambil kolom yang diperlukan untuk model yang akan dibuat. Lalu id untuk movie dan user dikurangi 1 sehingga index dimulai dari 0<br>
-![alt text](https://github.com/okyx/Movie-Prediksi/blob/main/penggabungan.PNG)
+![alt text](https://raw.githubusercontent.com/okyx/Movie-Prediksi/main/penggabungan.PNG)
 
 Tahap 4 split data:
 pada proyek ini hanya dilakukan split sebanyak 10% dikarenakan data yang ada cukup banyak yakni 10%.
@@ -64,25 +66,33 @@ Dalam modelling disini digunakan Model Neural Network dengan embedding layer
 
 Neural Network digunakan untuk mengupdate bobot embedding layer sehingga hasil perkalian dot antara embedding layer user dan layer movie sesuai dengan target yang diingingkan , perlu diketahui bahwa perkalian dot pada matrix akan menghasilkan 1 jika vektor dari user dan vektor dari movie memiliki magnitude yang sama dan melalui pelatihan akan diupdate untuk mendapatkan loss terkecil mungkin.
 
-Adapun plot loss pada pelatihan ini sebagai berikut
-![alt text](https://github.com/okyx/Movie-Prediksi/blob/main/gambar/plot%20loss.png)<br>
+Adapun plot loss pada pelatihan ini sebagai berikut<br>
+![alt text](https://raw.githubusercontent.com/okyx/Movie-Prediksi/main/gambar/plot%20loss.png)<br>
 
 
 
 pada contoh graph diatas dapat dilihat jika model konvergensi pada awal awal epoch untuk itu sebaiknya menggunakan callback
 
+Berikut top 10 judul film dengan rating tertinggi yang diberikan pengguna:<br>
+![alt text](https://raw.githubusercontent.com/okyx/Movie-Prediksi/main/gambar/top%2010%20rating.PNG)<br>
+
+Berikut top 10 judul yang direkomendasikan sistem yang telah dibangun:<br>
+![alt text](https://raw.githubusercontent.com/okyx/Movie-Prediksi/main/gambar/top10%20recom.PNG)<br>
+
+
+
+
+
 
 ## Evaluation
-Metric evaluasi yang digunakan adalah binary cross entropy dikarenakan fungsi ini baik untuk menghitung nilai dari 0 - 1
-adapun rumus binary cross entropy sebagai berikut<br>
-![alt text](https://github.com/okyx/Movie-Prediksi/blob/main/gambar/loss%20function.PNG)<br>
+Metric evaluasi yang digunakan adalah Root Mean Squared, untuk menghitung rata-rata akar perbedaan kuadrat antara target dan prediksi.
+adapun rumus Root Mean Squared sebagai berikut<br>
+![alt text](https://raw.githubusercontent.com/okyx/Movie-Prediksi/main/gambar/metric.PNG)<br>
 
 dilihat dari rumus diatas jika nilai pred mendekati target maka nilai akan mendekati 0 (semakin kecil maka semakin baik)<br>
-dimisalkan target 1 dan predict 1 maka berdasarkan rumus diatas maka <br>
-loss = -(1 * log(1) + (1-1) * log(1-1))<br>
-loss = - (log(1))
-loss = 0
-<br>
-<br>
+
+Dimisalkan ytrue berupa 1, 0.8, dan 0.5 sedangkan ypred yang diprediksi oleh sistem nerural network adalah 0.9, 0.8, 1. Maka perhitungan RSME seperti dibawah ini.<br>
+![alt text](https://raw.githubusercontent.com/okyx/Movie-Prediksi/main/gambar/perhitungan%20metric.PNG)<br>
+
 
 
